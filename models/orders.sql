@@ -1,3 +1,5 @@
+{{ config(database='dbt_custom_db') }}
+
 {% set payment_methods = ['credit_card', 'coupon', 'bank_transfer', 'gift_card'] %}
 
 with orders as (

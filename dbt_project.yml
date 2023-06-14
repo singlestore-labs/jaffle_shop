@@ -6,10 +6,12 @@ version: '0.1'
 profile: 'jaffle_shop'
 
 model-paths: ["models"]
-seed-paths: ["seeds"]
-test-paths: ["tests"]
 analysis-paths: ["analysis"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
 macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
 
 target-path: "target"
 clean-targets:
@@ -21,6 +23,9 @@ require-dbt-version: [">=1.0.0", "<2.0.0"]
 
 models:
   jaffle_shop:
-      materialized: table
-      staging:
-        materialized: view
+    +on_schema_change: "sync_all_columns"
+    +pre-hook: "CREATE TABLE IF NOT EXISTS hook_pre(i int)"
+    +post-hook: "CREATE TABLE IF NOT EXISTS hook_post(i int)"
+    materialized: table
+    staging:
+      materialized: view

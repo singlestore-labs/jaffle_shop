@@ -1,3 +1,6 @@
+{{ config(database='dbt_custom_db') }}
+
+
 with source as (
 
     {#-
